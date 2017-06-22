@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="20deca53-6e7d-465e-9771-a798c243ff89" ChangeDateTime="06/22/2017 08:53:17">
+    <Property Name="ElementName" Value="[dbo].[CK_Diaryes_Type]" />
+    <Property Name="ElementType" Value="SqlCheckConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Diaryes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[CK_Diaryes_Type fdsg]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="840eeaca-2035-47ab-b5d0-2bd831ace958" ChangeDateTime="06/22/2017 08:53:36">
+    <Property Name="ElementName" Value="[dbo].[CK_Diaryes_Type fdsg]" />
+    <Property Name="ElementType" Value="SqlCheckConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Diaryes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[CK_Diaryes_Type]" />
+  </Operation>
+</Operations>

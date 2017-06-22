@@ -1,0 +1,5 @@
+C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\OrganizerDB\bin\Debug\OrganizerDB.dacpac
+C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\OrganizerDB\bin\Debug\OrganizerDB.dll
+C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\OrganizerDB\bin\Debug\OrganizerDB.pdb
+C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\OrganizerDB\obj\Debug\OrganizerDB.dll
+C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\OrganizerDB\obj\Debug\OrganizerDB.pdb
