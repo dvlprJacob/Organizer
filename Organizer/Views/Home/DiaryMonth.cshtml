@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+<div>
+    <h3>Ежедневник</h3>
+    @Html.ActionLink("Список", "Index", null, new { @class = "btn btn-primary" })
+    <table>
+        <tr class="header">
+            <td><p>Тип</p></td>
+            <td><p>Тема</p></td>
+            <td><p>Дата начала/конца</p></td>
+            <td><p>Место встречи</p></td>
+            <td><p>Статус</p></td>
+            <td></td>
+        </tr>
+        @foreach (var d in ViewBag.Diary)
+        {
+            <tr>
+                <td><p>@d.Type</p></td>
+                <td><p>@d.Theme</p></td>
+                <td>
+                    @if (d.EndDate == null)
+                {
+                    <p>@d.BeginDate</p>
+                }
+                else
+                {
+                    <p>@d.BeginDate / @d.EndDate</p>
+                }
+            </td>
+            <td>
+                @if (d.Place == null)
+                {
+                <p></p>
+            }
+            else
+            {
+                <p>@d.Place</p>
+            }
+        </td>
+        <td><p>@d.DoneStatus</p></td>
+    </tr>
+        }
+    </table>
+</div>
+

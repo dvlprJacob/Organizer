@@ -49,5 +49,3 @@ C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\Organizer\bin\ru\
 C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\Organizer\obj\Debug\Organizer.csprojResolveAssemblyReference.cache
 C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\Organizer\obj\Debug\Organizer.dll
 C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\Organizer\obj\Debug\Organizer.pdb
-C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\Organizer\bin\OrganizerDB.dll
-C:\Users\Jacob\Documents\Visual Studio 2015\Projects\Organizer\Organizer\bin\OrganizerDB.pdb

@@ -1,0 +1,34 @@
+﻿@model Organizer.Models.Diaryes
+@{
+    Layout = null;
+}
+
+<h3>Новая запись    </h3>
+@Html.ActionLink("Главная", "Index", null, new { @class = "btn btn-primary" })
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Type, "Тема")
+    <br />
+    @Html.EditorFor(model => model.Type)
+    <br /><br />
+    @Html.LabelFor(model => model.Theme, "Тема")
+    <br />
+    @Html.EditorFor(model => model.Theme)
+    <br /><br />
+    @Html.LabelFor(model => model.BeginDate, "Начало")
+    <br />
+    @Html.EditorFor(model => model.BeginDate)
+    <br /><br />
+    <br /><br />
+    @Html.LabelFor(model => model.EndDate, "Конец")
+    <br />
+    @Html.EditorFor(model => model.EndDate)
+    <br /><br />
+    <br /><br />
+    @Html.LabelFor(model => model.DoneStatus, "Статус (0 или 1)")
+    <br />
+    @Html.EditorFor(model => model.DoneStatus)
+    <br /><br />
+    <input type="submit" value="Добавить" />
+}
