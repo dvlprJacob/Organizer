@@ -4,6 +4,8 @@
 <div>
     <h3>Ежедневник</h3>
     @Html.ActionLink("Список", "Index", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("День", "DiaryDay", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Неделя", "DiaryWeek", null, new { @class = "btn btn-primary" })
     <table>
         <tr class="header">
             <td><p>Тип</p></td>
@@ -42,5 +44,6 @@
     </tr>
         }
     </table>
+    @Html.ActionLink("Новая заметка", "DiaryAdd", null, new { @class = "btn btn-primary" })
 </div>
 

@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(model => model.Type, "Тема")
+    @Html.LabelFor(model => model.Type, "Тип")
     <br />
     @Html.EditorFor(model => model.Type)
     <br /><br />
@@ -16,7 +16,7 @@
     <br />
     @Html.EditorFor(model => model.Theme)
     <br /><br />
-    @Html.LabelFor(model => model.BeginDate, "Начало")
+    @Html.LabelFor(model => model.BeginDate, "Начало гг.мм.дд")
     <br />
     @Html.EditorFor(model => model.BeginDate)
     <br /><br />
@@ -25,6 +25,10 @@
     <br />
     @Html.EditorFor(model => model.EndDate)
     <br /><br />
+    <br /><br />
+    @Html.LabelFor(model => model.Place, "Место встречи")
+    <br />
+    @Html.EditorFor(model => model.Place)
     <br /><br />
     @Html.LabelFor(model => model.DoneStatus, "Статус (0 или 1)")
     <br />

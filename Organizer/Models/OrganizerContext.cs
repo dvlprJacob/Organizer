@@ -9,9 +9,9 @@ namespace Organizer.Models
 {
     public class OrganizerContext:DbContext
     {
-        public OrganizerContext() : base("Organizer")
-        {
-        }
+        //public OrganizerContext() : base("OrganizerContext")
+        //{
+        //}
         public DbSet<Diaryes> Diary { get; set; }
         public DbSet<ContactList> Contact { get; set; }
     }
