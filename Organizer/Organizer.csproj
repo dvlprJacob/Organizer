@@ -181,6 +181,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\DiaryMonth.cshtml" />
     <Content Include="Views\Home\DiaryAdd.cshtml" />
+    <Content Include="Views\Home\DiaryDelete.cshtml" />
+    <Content Include="Views\Home\DiaryUpdate.cshtml" />
+    <Content Include="Views\Home\DiaryDone.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

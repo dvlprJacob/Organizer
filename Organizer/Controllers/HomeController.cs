@@ -11,7 +11,7 @@ using Organizer.Helpers;
 
 namespace Organizer.Controllers
 {
-    public class HomeController : Controller
+public class HomeController : Controller
     {
         OrganizerContext db = new OrganizerContext();
         DBHelper dbHelper = new DBHelper();
@@ -20,6 +20,54 @@ namespace Organizer.Controllers
             IEnumerable<Diaryes> diaryes = db.Diary;
             ViewBag.Diary = diaryes;
             return View();
+        }
+        [HttpGet]
+        public ActionResult DiaryDone(int id)
+        {
+            DiaryDoneExecute(id);
+            return View();
+        }
+        //[HttpPost]
+        //public ActionResult DiaryDone(Diaryes diary)
+        //{
+        //    db.Entry(diary).State = EntityState.Modified;
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+        [HttpGet]
+        public ActionResult DiaryUpdate(int id)
+        {
+            Diaryes diary = db.Diary.Find(id);
+            return View(diary);
+        }
+        [HttpPost]
+        public ActionResult DiaryUpdate(Diaryes diary)
+        {
+            db.Entry(diary).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult DiaryDelete(int id)
+        {
+            Diaryes diary = db.Diary.Find(id);
+            if(diary==null)
+            {
+                return HttpNotFound();
+            }
+            return View(diary);
+        }
+        [HttpPost,ActionName("DiaryDelete")]
+        public ActionResult DiaryDeleteConfirmed(int id)
+        {
+            Diaryes diary = db.Diary.Find(id);
+            if (diary == null)
+            {
+                return HttpNotFound();
+            }
+            db.Diary.Remove(diary);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult DiaryAdd()
@@ -45,7 +93,6 @@ namespace Organizer.Controllers
             DateTime now = DateTime.Now; // текущее время
             DateTime currentWeekStart = now.Date.AddDays(1 - (int)now.DayOfWeek); // дата начала текущей недели
             DateTime nextWeekStart = currentWeekStart.AddDays(7); // дата начала следующей недели
-            // dateTime >= currentWeekStart && dateTime < nextWeekStart;
 
             SqlParameter param1 = new SqlParameter("@currentWeekStart", currentWeekStart);
             SqlParameter param2 = new SqlParameter("@nextWeekStart", nextWeekStart);
@@ -71,6 +118,12 @@ namespace Organizer.Controllers
             // покажет, принадлежит ли время к текущей неделе
             bool dateTimeIsOnCurrentWeek = dateTime >= currentWeekStart && dateTime < nextWeekStart;
             return dateTimeIsOnCurrentWeek;
+        }
+        protected void DiaryDoneExecute(int id)
+        {
+            SqlParameter param = new SqlParameter("@id", id);
+            db.Diary.SqlQuery("update Diaryes set DoneStatus = 1 where Id = @id");
+            db.SaveChanges();
         }
     }
 }

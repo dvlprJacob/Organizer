@@ -2,37 +2,47 @@
 @{
     Layout = null;
 }
+<h1>Ежедневник</h1>
+<h2>Новая запись </h2>
+<fieldset>
+    @Html.ActionLink("Главная", "Index", null, new { @class = "btn btn-primary" })
+</fieldset>
+<br />
 
-<h3>Новая запись    </h3>
-@Html.ActionLink("Главная", "Index", null, new { @class = "btn btn-primary" })
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("DiaryAdd", "Home", FormMethod.Post))
 {
-    @Html.LabelFor(model => model.Type, "Тип")
-    <br />
-    @Html.EditorFor(model => model.Type)
-    <br /><br />
-    @Html.LabelFor(model => model.Theme, "Тема")
-    <br />
-    @Html.EditorFor(model => model.Theme)
-    <br /><br />
-    @Html.LabelFor(model => model.BeginDate, "Начало гг.мм.дд")
-    <br />
-    @Html.EditorFor(model => model.BeginDate)
-    <br /><br />
-    <br /><br />
-    @Html.LabelFor(model => model.EndDate, "Конец")
-    <br />
-    @Html.EditorFor(model => model.EndDate)
-    <br /><br />
-    <br /><br />
-    @Html.LabelFor(model => model.Place, "Место встречи")
-    <br />
-    @Html.EditorFor(model => model.Place)
-    <br /><br />
-    @Html.LabelFor(model => model.DoneStatus, "Статус (0 или 1)")
-    <br />
-    @Html.EditorFor(model => model.DoneStatus)
-    <br /><br />
-    <input type="submit" value="Добавить" />
+    <fieldset>
+        @Html.HiddenFor(m => m.Id)
+        <p>
+            @Html.LabelFor(m => m.Type, "Тип (Встреча, Дело, Памятка)")
+            <br />
+            @Html.EditorFor(m => m.Type)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Theme, "Тема")
+            <br />
+            @Html.EditorFor(m => m.Theme)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.BeginDate, "Начало ( гг.мм.дд чч:мм )")
+            <br />
+            @Html.EditorFor(m => m.BeginDate)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.EndDate, "Конец ( гг.мм.дд чч:мм )")
+            <br />
+            @Html.EditorFor(m => m.EndDate)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Place, "Место встречи")
+            <br />
+            @Html.EditorFor(m => m.Place)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.DoneStatus, "Статус (0/1)")
+            <br />
+            @Html.EditorFor(m => m.DoneStatus)
+        </p>
+        <p><input type="submit" value="Отправить" /></p>
+    </fieldset>
 }

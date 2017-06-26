@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+@model Organizer.Models.Diaryes
+<h2>Удаление записи</h2>
+<fieldset>
+    <dl>
+        <dt>Тип</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>Тема</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Theme)
+        </dd>
+
+        <dt>Статус</dt>
+        <dd>
+            @Html.DisplayFor(model => model.DoneStatus)
+        </dd>
+    </dl>
+    <fieldset>
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </fieldset>
+</fieldset>
+<br />
+<fieldset>
+    @Html.ActionLink("Главная", "Index", null, new { @class = "btn btn-primary" })
+</fieldset>

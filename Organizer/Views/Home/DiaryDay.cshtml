@@ -2,47 +2,78 @@
     Layout = null;
 }
 <div>
-    <h3>Ежедневник</h3>
-    @Html.ActionLink("Список", "Index", null, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Неделя", "DiaryWeek", null, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Месяц", "DiaryMonth", null, new { @class = "btn btn-primary" })
-    <table>
-        <tr class="header">
-            <td><p>Тип</p></td>
-            <td><p>Тема</p></td>
-            <td><p>Дата начала/конца</p></td>
-            <td><p>Место встречи</p></td>
-            <td><p>Статус</p></td>
-            <td></td>
-        </tr>
-        @foreach (var d in ViewBag.Diary)
-        {
+    <h1>Ежедневник</h1>
+    <h2>День</h2>
+    <fieldset>
+        <table>
             <tr>
-                <td><p>@d.Type</p></td>
-                <td><p>@d.Theme</p></td>
                 <td>
-                    @if (d.EndDate == null)
-                {
-                    <p>@d.BeginDate</p>
-                }
-                else
-                {
-                    <p>@d.BeginDate / @d.EndDate</p>
-                }
-            </td>
-            <td>
-                @if (d.Place == null)
-                {
-                <p></p>
-            }
-            else
+                    <fieldset>
+                        @Html.ActionLink("Список", "Index", null, new { @class = "btn btn-primary" })
+                    </fieldset>
+                </td>
+                <td>
+                    <fieldset>
+                        @Html.ActionLink("Месяц", "DiaryMonth", null, new { @class = "btn btn-primary" })
+                    </fieldset>
+                </td>
+                <td>
+                    <fieldset>
+                        @Html.ActionLink("Неделя", "DiaryWeek", null, new { @class = "btn btn-primary" })
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <table>
+            <tr class="header">
+                <td><p>Id</p></td>
+                <td><p>Тип</p></td>
+                <td><p>Тема</p></td>
+                <td><p>Дата начала/конца</p></td>
+                <td><p>Место встречи</p></td>
+                <td><p>Статус</p></td>
+                <td></td>
+            </tr>
+            @foreach (var d in ViewBag.Diary)
             {
-                <p>@d.Place</p>
+                <tr>
+                    <td><p>@d.Id</p></td>
+                    <td><p>@d.Type</p></td>
+                    <td><p>@d.Theme</p></td>
+                    <td>
+                        @if (d.EndDate == null)
+                {
+                            <p>@d.BeginDate</p>
+                        }
+                        else
+                        {
+                            <p>@d.BeginDate / @d.EndDate</p>
+                        }
+                    </td>
+                    <td>
+                        @if (d.Place == null)
+                {
+                            <p></p>
+                        }
+                        else
+                        {
+                            <p>@d.Place</p>
+                        }
+                    </td>
+                    <td><p>@d.DoneStatus</p></td>
+                    <td>
+                        @Html.ActionLink("Удалить", "DiaryDelete", new { id = d.Id })  |
+                        @Html.ActionLink("Изменить", "DiaryUpdate", new { id = d.Id })  |
+                        @Html.ActionLink("Выполнено", "DiaryDone", new { id = d.Id })
+                    </td>
+                </tr>
             }
-        </td>
-        <td><p>@d.DoneStatus</p></td>
-    </tr>
-        }
-    </table>
-    @Html.ActionLink("Новая заметка", "DiaryAdd", null, new { @class = "btn btn-primary" })
+        </table>
+    </fieldset>
+    <br />
+    <fieldset>
+        @Html.ActionLink("Новая заметка", "DiaryAdd", null, new { @class = "btn btn-primary" })
+    </fieldset>
 </div>

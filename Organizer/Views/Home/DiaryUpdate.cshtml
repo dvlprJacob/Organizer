@@ -1,0 +1,48 @@
+﻿@model Organizer.Models.Diaryes
+@{
+    Layout = null;
+    ViewBag.Title = "Редактировать запись";
+}
+
+<fieldset>
+    @Html.ActionLink("Главная", "Index", null, new { @class = "btn btn-primary" })
+</fieldset>
+
+<h2>Запись № @Model.Id</h2>
+@using (Html.BeginForm("DiaryUpdate", "Home", FormMethod.Post))
+{
+    <fieldset>
+        @Html.HiddenFor(m=>m.Id)
+        <p>
+            @Html.LabelFor(m=>m.Type,"Тип (Встреча, Дело, Памятка)")
+            <br />
+            @Html.EditorFor(m=>m.Type)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Theme, "Тема")
+            <br />
+            @Html.EditorFor(m => m.Theme)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.BeginDate, "Начало ( гг.мм.дд чч:мм )")
+            <br />
+            @Html.EditorFor(m => m.BeginDate)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.EndDate, "Конец ( гг.мм.дд чч:мм для встречи и дела)")
+            <br />
+            @Html.EditorFor(m => m.EndDate)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Place, "Место встречи")
+            <br />
+            @Html.EditorFor(m => m.Place)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.DoneStatus, "Статус (0/1)")
+            <br />
+            @Html.EditorFor(m => m.DoneStatus)
+        </p>
+        <p><input type="submit" value="Отправить" /></p>
+    </fieldset>
+}
