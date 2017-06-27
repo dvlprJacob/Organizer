@@ -24,16 +24,16 @@ public class HomeController : Controller
         [HttpGet]
         public ActionResult DiaryDone(int id)
         {
-            DiaryDoneExecute(id);
-            return View();
+            Diaryes diary = db.Diary.Find(id);
+            DiaryDone(diary);
+            return RedirectToAction("Index");
         }
-        //[HttpPost]
-        //public ActionResult DiaryDone(Diaryes diary)
-        //{
-        //    db.Entry(diary).State = EntityState.Modified;
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        private void DiaryDone(Diaryes diary)
+        {
+            db.Entry(diary).State = EntityState.Modified;
+            diary.DoneStatus = 1;
+            db.SaveChanges();
+        }
         [HttpGet]
         public ActionResult DiaryUpdate(int id)
         {
@@ -118,12 +118,6 @@ public class HomeController : Controller
             // покажет, принадлежит ли время к текущей неделе
             bool dateTimeIsOnCurrentWeek = dateTime >= currentWeekStart && dateTime < nextWeekStart;
             return dateTimeIsOnCurrentWeek;
-        }
-        protected void DiaryDoneExecute(int id)
-        {
-            SqlParameter param = new SqlParameter("@id", id);
-            db.Diary.SqlQuery("update Diaryes set DoneStatus = 1 where Id = @id");
-            db.SaveChanges();
         }
     }
 }
