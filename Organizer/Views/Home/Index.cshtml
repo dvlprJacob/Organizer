@@ -2,9 +2,30 @@
 @{
     Layout = null;
 }
-@model Organizer.Models.Diaryes
+@model IEnumerable<Organizer.Models.Diaryes>
 <div>
     <h1>Ежедневник</h1>
+
+    <div>
+        <fieldset>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                <fieldset>
+                    <p>Фильтровать по @Html.DropDownList("colNameF")</p>
+                </fieldset>
+                <fieldset>
+                        <p>
+                            Значение типа @Html.DropDownList("filterType")
+                        </p>
+                </fieldset>
+                <fieldset>
+                     <p>даты <input type = "date" name = "date" /></p>
+                </fieldset>
+           <p><input type = "submit" value = "Отфильтровать" /></p> 
+            }
+        </fieldset>
+    </div>
+
     <h2>Список</h2>
     <fieldset>
         <table>
@@ -38,7 +59,7 @@
                 <td><p>Статус</p></td>
                 <td></td>
             </tr>
-            @foreach (var d in ViewBag.Diary)
+            @foreach (var d in Model)
             {
                 <tr>
                     <td><p>@d.Id</p></td>
@@ -77,5 +98,21 @@
     <br />
     <fieldset>
         @Html.ActionLink("Новая заметка", "DiaryAdd", null, new { @class = "btn btn-primary" })
+    </fieldset>
+    <h2>Поиск</h2>
+    <fieldset>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+            <fieldset>
+                <p>Поиск по @Html.DropDownList("colNameS")</p>
+            </fieldset>
+                <fieldset>
+                    <p><input type="text" name="srchValue" /></p>
+                </fieldset>
+                <p><input type="submit" value="Найти" /></p>
+        }
+    </fieldset>
+    <fieldset>
+        @Html.ActionLink("Контакты", "Index", "ContactList", null, new { @class = "btn btn-primary" })
     </fieldset>
 </div>

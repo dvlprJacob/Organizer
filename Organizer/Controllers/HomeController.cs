@@ -8,17 +8,94 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using Organizer.Helpers;
+using System.Data.Entity.Core.Objects;
 
 namespace Organizer.Controllers
 {
 public class HomeController : Controller
     {
         OrganizerContext db = new OrganizerContext();
-        DBHelper dbHelper = new DBHelper();
         public ActionResult Index()
         {
+            var colList = new List<string>() { "Тип", "Начало", "Конец" };
+            var colListSrch = new List<string>() { "Тип", "Тема", "Место" };
+            var typesList = new List<string>() { "Встреча", "Дело", "Памятка" };
+
+            ViewData["colNameF"] = new SelectList(colList);
+            ViewData["colNameS"] = new SelectList(colListSrch);
+            ViewData["filterType"] = new SelectList(typesList);
+
             IEnumerable<Diaryes> diaryes = db.Diary;
-            ViewBag.Diary = diaryes;
+            return View(diaryes.ToList<Diaryes>());
+        }
+        private List<Diaryes> DiarySearch(string colName,string srchValue)
+        {
+            switch (colName)
+            {
+                case "Тип":
+                    var diary1 = from d in db.Diary where d.Type.Contains(srchValue) select d;
+                    return diary1.ToList();
+                case "Тема":
+                    var diary2 = from d in db.Diary where d.Theme.Contains(srchValue) select d;
+                    return diary2.ToList();
+                case "Место":
+                    var diary3 = from d in db.Diary where d.Place.Contains(srchValue) select d;
+                    return diary3.ToList();
+
+            }
+            return null;
+        }
+        [HttpPost]
+        public ActionResult Index(string colNameF, string filterType, string filterDate,string srchValue,string colNameS)
+        {
+            var colList = new List<string>() { "Тип", "Начало", "Конец" };
+            var typesList = new List<string>() { "Встреча", "Дело", "Памятка" };
+            var colListSrch = new List<string>() { "Тип", "Тема", "Место" };
+
+            ViewData["colNameS"] = new SelectList(colListSrch);
+            ViewData["colNameF"] = new SelectList(colList);
+            ViewData["filterType"] = new SelectList(typesList);
+
+            if(!String.IsNullOrEmpty(srchValue))
+            {
+                return View(DiarySearch(colNameS, srchValue));
+            }
+
+            switch(colNameF)
+                {
+                case "Тип":
+                    {
+
+                        if (!string.IsNullOrEmpty(filterType))
+                        {
+                            var linqQuery = from d in db.Diary select d;
+                            linqQuery = linqQuery.Where(d => d.Type.Contains(filterType)).OrderBy(d=>d.BeginDate);
+                            return View(linqQuery.ToList());
+                        }
+                        break;
+                    }
+                case "Начало":
+                    {
+                        if (filterDate != "дд.мм.гггг")
+                        {
+                            var linqQuery = from d in db.Diary select d;
+                            // 'Date' is not supported LINQ to Entytyes - не работает
+                            linqQuery = linqQuery.Where(d => d.BeginDate.Date == Convert.ToDateTime(filterDate).Date).OrderBy(d=>d.BeginDate);
+                            return View(linqQuery.ToList()); 
+                        }
+                        break;
+                    }
+                case "Конец":
+                    {
+                        if (filterDate != "дд.мм.гггг")
+                        {
+                            SqlParameter param = new SqlParameter("@filterValue", filterDate);
+                            var linqQuery = db.Diary.SqlQuery("select * from Diaryes where EndDate = TO_DATE(@filterDate) order by BeginDate", param);
+                            return View(linqQuery.ToList());
+                        }
+                        break;
+                    }
+            }
             return View();
         }
         [HttpGet]
@@ -83,6 +160,9 @@ public class HomeController : Controller
         }
         public ActionResult DiaryDay()
         {
+            var colList = new List<string>() { "Тип", "Начало", "Конец" };
+            ViewData["colName"] = new SelectList(colList);
+
             IEnumerable<Diaryes> diaryes = db.Diary.Where(diary=>diary.BeginDate.Day==DateTime.Now.Day);
             ViewBag.Diary = diaryes;
             return View();
@@ -90,6 +170,9 @@ public class HomeController : Controller
 
         public ActionResult DiaryWeek()
         {
+            var colList = new List<string>() { "Тип", "Начало", "Конец" };
+            ViewData["colName"] = new SelectList(colList);
+
             DateTime now = DateTime.Now; // текущее время
             DateTime currentWeekStart = now.Date.AddDays(1 - (int)now.DayOfWeek); // дата начала текущей недели
             DateTime nextWeekStart = currentWeekStart.AddDays(7); // дата начала следующей недели
@@ -105,6 +188,9 @@ public class HomeController : Controller
 
         public ActionResult DiaryMonth()
         {
+            var colList = new List<string>() { "Тип", "Начало", "Конец" };
+            ViewData["colName"] = new SelectList(colList);
+
             IEnumerable<Diaryes> diaryes = db.Diary.Where(diary=>diary.BeginDate.Month==DateTime.Now.Month);
             ViewBag.Diary = diaryes;
             return View();
@@ -114,8 +200,6 @@ public class HomeController : Controller
             DateTime now = DateTime.Now; // текущее время
             DateTime currentWeekStart = now.Date.AddDays(1 - (int)now.DayOfWeek); // дата начала текущей недели
             DateTime nextWeekStart = currentWeekStart.AddDays(7); // дата начала следующей недели
-
-            // покажет, принадлежит ли время к текущей неделе
             bool dateTimeIsOnCurrentWeek = dateTime >= currentWeekStart && dateTime < nextWeekStart;
             return dateTimeIsOnCurrentWeek;
         }

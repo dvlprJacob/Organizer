@@ -128,12 +128,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DBHelper.cs" />
     <Compile Include="Models\ContactList.cs" />
+    <Compile Include="Models\ContactListContext.cs" />
     <Compile Include="Models\Diaryes.cs" />
     <Compile Include="Models\OrganizerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -184,6 +186,7 @@
     <Content Include="Views\Home\DiaryDelete.cshtml" />
     <Content Include="Views\Home\DiaryUpdate.cshtml" />
     <Content Include="Views\Home\DiaryDone.cshtml" />
+    <Content Include="Views\ContactList\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
