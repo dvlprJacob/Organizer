@@ -4,7 +4,13 @@
 }
 @model IEnumerable<Organizer.Models.Diaryes>
 <div>
-    <h1>Ежедневник</h1>
+    <button>
+        <h1>
+            @Html.ActionLink("Обновить","Index","Home")
+        </h1>
+    </button>
+    <hr />
+    <hr />
     @using (Html.BeginForm("Index", "ContactList"))
     {
         <div class="col-md-offset-2 col-md-10">
@@ -25,7 +31,7 @@
                         </p>
                 </fieldset>
                 <fieldset>
-                     <p>даты <input type = "date" name = "date" /></p>
+                     <p>даты <input type = "text" name = "date" /></p>
                 </fieldset>
            <p><input type = "submit" value = "Отфильтровать" /></p> 
             }
@@ -57,7 +63,6 @@
     <fieldset>
         <table>
             <tr class="header">
-                <td><p>Id</p></td>
                 <td><p>Тип</p></td>
                 <td><p>Тема</p></td>
                 <td><p>Дата начала/конца</p></td>
@@ -68,7 +73,6 @@
             @foreach (var d in Model)
             {
                 <tr>
-                    <td><p>@d.Id</p></td>
                     <td><p>@d.Type</p></td>
                     <td><p>@d.Theme</p></td>
                     <td>

@@ -18,7 +18,7 @@ public class HomeController : Controller
         public ActionResult Index()
         {
             var colList = new List<string>() { "Тип", "Начало", "Конец" };
-            var colListSrch = new List<string>() { "Тип", "Тема", "Место" };
+            var colListSrch = new List<string>() { "Тип", "Тема", "Место","Начало","Конец"};
             var typesList = new List<string>() { "Встреча", "Дело", "Памятка" };
 
             ViewData["colNameF"] = new SelectList(colList);
@@ -30,18 +30,26 @@ public class HomeController : Controller
         }
         private List<Diaryes> DiarySearch(string colName,string srchValue)
         {
-            switch (colName)
+            if (!string.IsNullOrEmpty(srchValue))
             {
-                case "Тип":
-                    var diary1 = from d in db.Diary where d.Type.Contains(srchValue) select d;
-                    return diary1.ToList();
-                case "Тема":
-                    var diary2 = from d in db.Diary where d.Theme.Contains(srchValue) select d;
-                    return diary2.ToList();
-                case "Место":
-                    var diary3 = from d in db.Diary where d.Place.Contains(srchValue) select d;
-                    return diary3.ToList();
-
+                switch (colName)
+                {
+                    case "Тип":
+                        var diary1 = from d in db.Diary where d.Type.Contains(srchValue) select d;
+                        return diary1.ToList();
+                    case "Тема":
+                        var diary2 = from d in db.Diary where d.Theme.Contains(srchValue) select d;
+                        return diary2.ToList();
+                    case "Место":
+                        var diary3 = from d in db.Diary where d.Place.Contains(srchValue) select d;
+                        return diary3.ToList();
+                    case "Начало":
+                        var diary4 = from d in db.Diary where d.BeginDate.ToString("dd.mm.yyyy").Contains(srchValue) select d;
+                        return diary4.ToList();
+                    case "Конец":
+                        var diary5 = from d in db.Diary where d.EndDate.Value.ToString("dd.mm.yyyy").Contains(srchValue) select d;
+                        return diary5.ToList();
+                }
             }
             return null;
         }
@@ -50,7 +58,7 @@ public class HomeController : Controller
         {
             var colList = new List<string>() { "Тип", "Начало", "Конец" };
             var typesList = new List<string>() { "Встреча", "Дело", "Памятка" };
-            var colListSrch = new List<string>() { "Тип", "Тема", "Место" };
+            var colListSrch = new List<string>() { "Тип", "Тема", "Место","Начало","Конец" };
 
             ViewData["colNameS"] = new SelectList(colListSrch);
             ViewData["colNameF"] = new SelectList(colList);
@@ -76,25 +84,17 @@ public class HomeController : Controller
                     }
                 case "Начало":
                     {
-                        if (filterDate != "дд.мм.гггг")
-                        {
                             var linqQuery = from d in db.Diary select d;
                             // 'Date' is not supported LINQ to Entytyes' - не работает
-                            linqQuery = linqQuery.Where(d => d.BeginDate.Date == Convert.ToDateTime(filterDate).Date).OrderBy(d=>d.BeginDate);
+                            linqQuery = linqQuery.Where(d => d.BeginDate.Date.ToString("dd.mm.yyyy").Contains(filterDate)).OrderBy(d=>d.BeginDate);
                             return View(linqQuery.ToList()); 
-                        }
-                        break;
                     }
                 case "Конец":
                     {
-                        if (filterDate != "дд.мм.гггг")
-                        {
                             // 'Date' is not supported LINQ to Entytyes' - не работает
-                            SqlParameter param = new SqlParameter("@filterValue", filterDate);
-                            var linqQuery = db.Diary.SqlQuery("select * from Diaryes where EndDate = TO_DATE(@filterDate) order by BeginDate", param);
+                            var linqQuery = from d in db.Diary select d;
+                            linqQuery = linqQuery.Where(d => d.EndDate.Value.Date.ToString("dd.mm.yyyy").Contains(filterDate)).OrderBy(d => d.BeginDate);
                             return View(linqQuery.ToList());
-                        }
-                        break;
                     }
             }
             return View();

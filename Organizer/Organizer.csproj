@@ -190,6 +190,7 @@
     <Content Include="Views\ContactList\ContactAdd.cshtml" />
     <Content Include="Views\ContactList\ContactDelete.cshtml" />
     <Content Include="Views\ContactList\ContactUpdate.cshtml" />
+    <Content Include="Views\ContactList\ContactSearch.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
