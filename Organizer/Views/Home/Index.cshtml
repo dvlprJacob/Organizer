@@ -5,6 +5,12 @@
 @model IEnumerable<Organizer.Models.Diaryes>
 <div>
     <h1>Ежедневник</h1>
+    @using (Html.BeginForm("Index", "ContactList"))
+    {
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Контакты" class="btn btn-default" />
+        </div>
+    }
 
     <div>
         <fieldset>

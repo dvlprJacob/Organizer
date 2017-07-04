@@ -20,5 +20,30 @@ namespace Organizer.Controllers
             IEnumerable<ContactList> con = db.Contact;
             return View(con.ToList<ContactList>());
         }
+        [HttpGet]
+        public ActionResult ContactUpdate(int id)
+        {
+            ContactList diary = db.Contact.Find(id);
+            return View(diary);
+        }
+        [HttpPost]
+        public ActionResult ContactUpdate(ContactList diary)
+        {
+            db.Entry(diary).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index","ContactList");
+        }
+        [HttpGet]
+        public ActionResult ContactAdd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ContactAdd(ContactList entity)
+        {
+            db.Contact.Add(entity);
+            db.SaveChanges();
+            return RedirectToAction("Index","ContactList");
+        }
     }
 }

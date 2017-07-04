@@ -79,7 +79,7 @@ public class HomeController : Controller
                         if (filterDate != "дд.мм.гггг")
                         {
                             var linqQuery = from d in db.Diary select d;
-                            // 'Date' is not supported LINQ to Entytyes - не работает
+                            // 'Date' is not supported LINQ to Entytyes' - не работает
                             linqQuery = linqQuery.Where(d => d.BeginDate.Date == Convert.ToDateTime(filterDate).Date).OrderBy(d=>d.BeginDate);
                             return View(linqQuery.ToList()); 
                         }
@@ -89,6 +89,7 @@ public class HomeController : Controller
                     {
                         if (filterDate != "дд.мм.гггг")
                         {
+                            // 'Date' is not supported LINQ to Entytyes' - не работает
                             SqlParameter param = new SqlParameter("@filterValue", filterDate);
                             var linqQuery = db.Diary.SqlQuery("select * from Diaryes where EndDate = TO_DATE(@filterDate) order by BeginDate", param);
                             return View(linqQuery.ToList());
