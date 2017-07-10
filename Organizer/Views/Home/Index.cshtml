@@ -3,81 +3,68 @@
     Layout = null;
 }
 @model IEnumerable<Organizer.Models.Diaryes>
-<div>
-    <button>
-        <h1>
-            @Html.ActionLink("Обновить","Index","Home")
-        </h1>
-    </button>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ежедневник</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    @Html.ActionLink("Обновить", "Index", "Home", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Контакты", "Index", "ContactList", null, new { @class = "btn btn-success" })
+
     <hr />
     <hr />
-    @using (Html.BeginForm("Index", "ContactList"))
-    {
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Контакты" class="btn btn-default" />
-        </div>
-    }
+    
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <p>Фильтровать по @Html.DropDownList("colNameF")</p>
+        <p>Значение типа @Html.DropDownList("filterType")</p>
+        <p>даты <input type="text" name="date" /></p>
 
-    <div>
-        <fieldset>
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-            {
-                <fieldset>
-                    <p>Фильтровать по @Html.DropDownList("colNameF")</p>
-                </fieldset>
-                <fieldset>
-                        <p>
-                            Значение типа @Html.DropDownList("filterType")
-                        </p>
-                </fieldset>
-                <fieldset>
-                     <p>даты <input type = "text" name = "date" /></p>
-                </fieldset>
-           <p><input type = "submit" value = "Отфильтровать" /></p> 
-            }
-        </fieldset>
-    </div>
+        <button type="submit" class="btn btn-success">Отфильтровать</button>
+        }
 
-    <h2>Список</h2>
-    <fieldset>
-        <table>
+    <label class="label label-info">Список</label>
+    <br />
+    @Html.ActionLink("Месяц", "DiaryMonth", null, new { @class = "btn btn-info" })
+    @Html.ActionLink("День", "DiaryDay", null, new { @class = "btn btn-info" })
+    @Html.ActionLink("Неделя", "DiaryWeek", null, new { @class = "btn btn-info" })
+    <table class="table-bordered">
+        <tr>
+            <td>
+                Тип
+            </td>
+            <td>
+                Дата начала/конца
+            </td>
+            <td>
+                Место встречи
+            </td>
+            <td>
+                Статус
+            </td>
+            <td>
+                Детали
+            </td>
+        </tr>
+        @foreach (var d in Model)
+        {
             <tr>
                 <td>
-                    <fieldset>
-                        @Html.ActionLink("Месяц", "DiaryMonth", null, new { @class = "btn btn-primary" })
-                    </fieldset>
+                    <p>@d.Type</p>
                 </td>
                 <td>
-                    <fieldset>
-                        @Html.ActionLink("День", "DiaryDay", null, new { @class = "btn btn-primary" })
-                    </fieldset>
+                    <p>@d.Theme</p>
                 </td>
                 <td>
-                    <fieldset>
-                        @Html.ActionLink("Неделя", "DiaryWeek", null, new { @class = "btn btn-primary" })
-                    </fieldset>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-    <fieldset>
-        <table>
-            <tr class="header">
-                <td><p>Тип</p></td>
-                <td><p>Тема</p></td>
-                <td><p>Дата начала/конца</p></td>
-                <td><p>Место встречи</p></td>
-                <td><p>Статус</p></td>
-                <td></td>
-            </tr>
-            @foreach (var d in Model)
-            {
-                <tr>
-                    <td><p>@d.Type</p></td>
-                    <td><p>@d.Theme</p></td>
-                    <td>
-                        @if (d.EndDate == null)
-                {
+                    @if (d.EndDate == null)
+                    {
                         <p>@d.BeginDate</p>
                     }
                     else
@@ -87,42 +74,40 @@
                 </td>
                 <td>
                     @if (d.Place == null)
-                {
-                    <p></p>
-                }
-                else
-                {
-                    <p>@d.Place</p>
-                }
-            </td>
-            <td><p>@d.DoneStatus</p></td>
-            <td>
-                @Html.ActionLink("Удалить ", "DiaryDelete", new { id = d.Id })  |
-                @Html.ActionLink("Изменить ", "DiaryUpdate", new { id = d.Id })  |
-                @Html.ActionLink("Выполнено", "DiaryDone", new { id = d.Id })
-            </td>
-        </tr>
-            }
-        </table>
-    </fieldset>
-    <br />
-    <fieldset>
-        @Html.ActionLink("Новая заметка", "DiaryAdd", null, new { @class = "btn btn-primary" })
-    </fieldset>
-    <h2>Поиск</h2>
-    <fieldset>
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-            {
-            <fieldset>
-                <p>Поиск по @Html.DropDownList("colNameS")</p>
-            </fieldset>
-                <fieldset>
-                    <p><input type="text" name="srchValue" /></p>
-                </fieldset>
-                <p><input type="submit" value="Найти" /></p>
+                    {
+                        <p></p>
+                    }
+                    else
+                    {
+                        <p>@d.Place</p>
+                    }
+                </td>
+                <td>
+                    <p>@d.DoneStatus</p>
+                </td>
+                <td>
+                    @Html.ActionLink("Удалить ", "DiaryDelete", new { id = d.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Изменить ", "DiaryUpdate", new { id = d.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Выполнено", "DiaryDone", new { id = d.Id }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
         }
-    </fieldset>
-    <fieldset>
-        @Html.ActionLink("Контакты", "Index", "ContactList", null, new { @class = "btn btn-primary" })
-    </fieldset>
-</div>
+    </table>
+    @Html.ActionLink("Новая заметка", "DiaryAdd", null, new { @class = "btn btn-success" })
+    <hr />
+    <hr />
+    <h2>Поиск</h2>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+            <p>Поиск по @Html.DropDownList("colNameS")</p>
+        <p>Значение : <input type="text" name="srchValue" /></p>
+        <p><input type="submit" value="Найти" class="btn btn-success" /></p>
+        }
+
+        @Html.ActionLink("Контакты", "Index", "ContactList", null, new { @class = "btn btn-success" })
+    <br />
+    <br />
+    </div>
+
+</body>
+</html>

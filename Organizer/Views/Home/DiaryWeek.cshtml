@@ -2,14 +2,14 @@
     Layout = null;
 }
 <div>
-    <h1>Ежедневник</h1>
+    <h1>Ежедневник [Неделя]</h1>
     <h2>Неделя</h2>
     <fieldset>
-        <table>
+        <table class="table table-bordered">
             <tr>
                 <td>
                     <fieldset>
-                       @Html.ActionLink("Список", "Index", null, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Список", "Index", null, new { @class = "btn btn-primary" })
                     </fieldset>
                 </td>
                 <td>
@@ -26,7 +26,7 @@
         </table>
     </fieldset>
     <fieldset>
-        <table>
+        <table class="table table-bordered">
             <tr class="header">
                 <td><p>Id</p></td>
                 <td><p>Тип</p></td>
@@ -71,7 +71,8 @@
                 </tr>
             }
         </table>
-    </fieldset>
+
+</fieldset>
     <br />
     <fieldset>
         @Html.ActionLink("Новая заметка", "DiaryAdd", null, new { @class = "btn btn-primary" })

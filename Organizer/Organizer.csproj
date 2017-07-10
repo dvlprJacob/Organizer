@@ -185,7 +185,6 @@
     <Content Include="Views\Home\DiaryAdd.cshtml" />
     <Content Include="Views\Home\DiaryDelete.cshtml" />
     <Content Include="Views\Home\DiaryUpdate.cshtml" />
-    <Content Include="Views\Home\DiaryDone.cshtml" />
     <Content Include="Views\ContactList\Index.cshtml" />
     <Content Include="Views\ContactList\ContactAdd.cshtml" />
     <Content Include="Views\ContactList\ContactDelete.cshtml" />
